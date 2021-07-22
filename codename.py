@@ -17,135 +17,37 @@ def codename_parser(input_file, parser_map):
     with open(parser_map, 'r') as map:
         map_reader = csv.reader(map)
 
+        # Establish empty dictionairy to contain key, value pairs from the parser map file
         mapped_object_dict = {}
 
-        #check monster map in terminal
+        #Add key value pairs to the dictionairy looping through the map file line by line
         for line in map_reader:
-            print("monster_map line:", line)
             mapped_object_dict[line[0]] = line[1]
-            
-        print("map check of Forest Ghost:", mapped_object_dict["Forest Ghost"])
-
-
 
         #file to be parsed
         with open(input_file, 'r') as csv_file:
             csv_reader = csv.reader(csv_file)
-            print("csv_reader:", type(csv_reader))
             
-            parsed_file = []
+            # Establish empty list to contain each line of the csv file as it's own list nested inside the parsed_file_list
+            parsed_file_list = []
             
             # check input file in terminal
             for line in csv_reader:
                 
-                #Check each line of the input file to see if the monster name at index position 3 is in the mapped_object_dictionairy, then replace it with that key's corresponding value
-                print("pre-parsed input_file line at index 2:", line[2])
-
                 # Check the input file to see if the current string at index position 2 is contained within the mapped_object_dictionairy as part of a key-value pair. If the string is a key inside that dictionairy, replace that string with the corresponding value in the key-value pair
                 if line[2] in mapped_object_dict:
                     line[2] = mapped_object_dict[line[2]]
                     
-                            
-                print("post-parsed input_file line", line)
+                # Add the newly parsed line to the parsed_file_list
+                parsed_file_list.append(line)
 
-                parsed_file.append(line)
-            
-            print("parsed_file check:", parsed_file)
-
-            # with open('parsed.csv', 'w') as output:
-            #     for row in parsed_file:
-            #         print("row:", row)
-            #         for entry in row:
-            #             print("entry:", entry, end = "")
-
-            #             #eliminate trailing comma by checking if the entry is the last item in the row
-            #             last_item = row[-1]
-            #             if entry is not last_item:
-            #                 output.write(str(entry) + ',')
-            #             else:
-            #                 output.write(str(entry))
-            #         output.write('\n')
-
+            # Write the new csv file using the parsed information contained in parsed_file_list
             with open('parsed.csv', 'w') as output:
                 output_writer = csv.writer(output, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL)
 
-                for row in parsed_file:
+                for row in parsed_file_list:
                     output_writer.writerow(row)
 
-            
+
 #Run the function, check how it is working
 codename_parser('one.csv', 'monster_map.csv')
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# with open('one.csv', 'r') as csv_file:
-#         csv_reader = csv.reader(csv_file)
-
-# print("csv_reader:", csv_reader)
-
-# with open ('monster_map.csv', 'r') as map:
-#     map_reader = csv.reader(map)
-
-#     mapped_object_dict = {}
-
-#     for line in map_reader:
-#         print(line)
-#         mapped_object_dict[line[0]] = line[1]
-        
-#     print("map:", mapped_object_dict["Forest Ghost"])    
-            
-            
-            
-            
-            # for line in csv_reader:
-                
-            #     lineToStr = ','.join([str(elem) for elem in line])
-                
-            #     if "Bigfoot" in lineToStr:
-            #         print(lineToStr.replace("Bigfoot", "FuzzyHuman"))
-                
-            #     elif "Lake Monster" in lineToStr:
-            #         print(lineToStr.replace("Lake Monster", "GoodSwimmer"))
-
-            #     elif "Forest Ghost" in lineToStr:
-            #         print(lineToStr.replace("Forest Ghost", "TransparentCamper"))
-
-            #     elif "Talking Cactus" in lineToStr:
-            #         print(lineToStr.replace("Talking Cactus", "DesertBuddy"))
-
-            #     elif "Ice Dragon" in lineToStr:
-            #         print(lineToStr.replace("Ice Dragon", "ColdBird"))
-
-            #     else :
-            #         print(lineToStr)
-
-                
-
-
-
-
-            
-            
-            
-            
