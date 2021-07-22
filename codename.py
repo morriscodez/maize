@@ -6,6 +6,9 @@ import csv
 # The first input (input_file) is the csv file that needs to be parsed
 # The second input (parser_map) is the csv file that contains the instructions for how to parse the first file
 # The function returns a brand new, parsed version of the input file (first file)
+#! Two solutions must be added to make module more dynamic:
+#! First, the index position is hardcoded, but ideally I would target column names
+#! Second, the final csv writer is hard codes the new output .csv file name, so I need to find a way to make the naming of that file dynamic
 
 # Function to parse a csv file using another csv file as a map and then return the output as a new, separate, parsed csv file
 def codename_parser(input_file, parser_map):
@@ -49,7 +52,19 @@ def codename_parser(input_file, parser_map):
             
             print("parsed_file check:", parsed_file)
 
+            with open('parsed.csv', 'w') as output:
+                for row in parsed_file:
+                    for entry in row:
+                        #eliminate trailing comma by checking if the entry is the last item in the row
+                        last_item = row[-1]
+                        if entry is not last_item:
+                            entry = str(entry)
+                            output.write(str(entry) + ', ')
+                        else:
+                            output.write(str(entry))
+                    output.write('\n')
 
+            
 #Run the function, check how it is working
 codename_parser('one.csv', 'monster_map.csv')
 
