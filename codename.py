@@ -52,17 +52,25 @@ def codename_parser(input_file, parser_map):
             
             print("parsed_file check:", parsed_file)
 
+            # with open('parsed.csv', 'w') as output:
+            #     for row in parsed_file:
+            #         print("row:", row)
+            #         for entry in row:
+            #             print("entry:", entry, end = "")
+
+            #             #eliminate trailing comma by checking if the entry is the last item in the row
+            #             last_item = row[-1]
+            #             if entry is not last_item:
+            #                 output.write(str(entry) + ',')
+            #             else:
+            #                 output.write(str(entry))
+            #         output.write('\n')
+
             with open('parsed.csv', 'w') as output:
+                output_writer = csv.writer(output, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL)
+
                 for row in parsed_file:
-                    for entry in row:
-                        #eliminate trailing comma by checking if the entry is the last item in the row
-                        last_item = row[-1]
-                        if entry is not last_item:
-                            entry = str(entry)
-                            output.write(str(entry) + ', ')
-                        else:
-                            output.write(str(entry))
-                    output.write('\n')
+                    output_writer.writerow(row)
 
             
 #Run the function, check how it is working
