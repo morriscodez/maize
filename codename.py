@@ -36,13 +36,18 @@ def codename_parser(input_file, parser_map):
             for line in csv_reader:
                 
                 #Check each line of the input file to see if the monster name at index position 3 is in the mapped_object_dictionairy, then replace it with that key's corresponding value
-                print("input_file line index 2:", line[2])
+                print("pre-parsed input_file line at index 2:", line[2])
 
+                # Check the input file to see if the current string at index position 2 is contained within the mapped_object_dictionairy as part of a key-value pair. If the string is a key inside that dictionairy, replace that string with the corresponding value in the key-value pair
                 if line[2] in mapped_object_dict:
                     line[2] = mapped_object_dict[line[2]]
-                    #! Don't know if this is working yet, taking a break
+                    
                             
+                print("post-parsed input_file line", line)
+
+                parsed_file.append(line)
             
+            print("parsed_file check:", parsed_file)
 
 
 #Run the function, check how it is working
