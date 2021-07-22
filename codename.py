@@ -10,15 +10,7 @@ import csv
 # Function to parse a csv file using another csv file as a map and then return the output as a new, separate, parsed csv file
 def codename_parser(input_file, parser_map):
 
-    #file to be parsed
-    with open(input_file, 'r') as csv_file:
-        csv_reader = csv.reader(csv_file)
-
-        # check input file in terminal
-        for line in csv_reader:
-            print("input_file line:", line)
-
-    #file that instructs how the above file is to be parsed
+    #file that handles instructions for parsing the input file
     with open(parser_map, 'r') as map:
         map_reader = csv.reader(map)
 
@@ -30,12 +22,52 @@ def codename_parser(input_file, parser_map):
             mapped_object_dict[line[0]] = line[1]
             
         print("map check of Forest Ghost:", mapped_object_dict["Forest Ghost"])
-                        
+
+
+
+        #file to be parsed
+        with open(input_file, 'r') as csv_file:
+            csv_reader = csv.reader(csv_file)
+            print("csv_reader:", type(csv_reader))
+            
+            parsed_file = []
+            
+            # check input file in terminal
+            for line in csv_reader:
+                
+                #Check each line of the input file to see if the monster name at index position 3 is in the mapped_object_dictionairy, then replace it with that key's corresponding value
+                print("input_file line index 2:", line[2])
+
+                if line[2] in mapped_object_dict:
+                    line[2] = mapped_object_dict[line[2]]
+                    #! Don't know if this is working yet, taking a break
+                            
             
 
 
 #Run the function, check how it is working
 codename_parser('one.csv', 'monster_map.csv')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
